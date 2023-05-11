@@ -24,7 +24,7 @@ __decorate([
     (0, common_1.Post)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Object)
 ], UsersController.prototype, "createUser", null);
 UsersController = __decorate([
     (0, common_1.Controller)('users'),

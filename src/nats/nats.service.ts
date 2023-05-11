@@ -1,30 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { Stan, connect } from 'node-nats-streaming';
+import { ClientProxy, ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 @Injectable()
 export class NatsService {
-  private client: Stan;
+  private readonly client: ClientProxy;
 
-  connect(clusterId: string, clientId: string, url: string): Promise<void> {
-    return new Promise((resolve, reject) => {
-      this.client = connect(clusterId, clientId, { url });
-
-      this.client.on('connect', () => {
-        console.log('Connected to NATS');
-        resolve();
-      });
-
-      this.client.on('error', (err) => {
-        console.error('Failed to connect to NATS:', err);
-        reject(err);
-      });
+  constructor() {
+    this.client = ClientProxyFactory.create({
+      transport: Transport.NATS,
+      options: {
+        url: 'nats://localhost:4222',
+      },
     });
   }
 
-  getClient(): Stan {
-    if (!this.client) {
-      throw new Error('NATS client not initialized');
-    }
+  getClient(): ClientProxy {
     return this.client;
   }
 }

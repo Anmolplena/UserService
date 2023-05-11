@@ -8,6 +8,6 @@ import { NatsService } from 'src/nats/nats.service';
 @Module({
   imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
   controllers: [UsersController],
-  providers: [UsersService, NatsService],
+  providers: [UsersService,NatsService],
 })
 export class UsersModule {}

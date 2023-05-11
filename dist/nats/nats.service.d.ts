@@ -1,6 +1,6 @@
-import { Stan } from 'node-nats-streaming';
+import { ClientProxy } from '@nestjs/microservices';
 export declare class NatsService {
-    private client;
-    connect(clusterId: string, clientId: string, url: string): Promise<void>;
-    getClient(): Stan;
+    private readonly client;
+    constructor();
+    getClient(): ClientProxy;
 }

@@ -2,24 +2,23 @@ import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './interfaces/user.interface';
-import { NatsService } from '../nats/nats.service';
+import { NatsService } from 'src/nats/nats.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectModel('User') private readonly userModel: Model<User>,
-    private readonly natsService: NatsService,
+    private readonly natsService: NatsService
   ) {}
 
-  async createUser(user: User): Promise<User> {
+  async createUser(user: User): Promise<any> {
     const createdUser = new this.userModel(user);
     const savedUser = await createdUser.save();
-    const message = {
-      userId: savedUser._id,
-    };
-
-    const natsClient = this.natsService.getClient();
-    natsClient.publish('userCreated', JSON.stringify(message));
+    // const message = {
+    //   userId: savedUser._id,
+    // };
+    const message = { event: 'userCreated', data: savedUser._id };
+     await this.natsService.getClient().send('userEvents', message).toPromise();
     return savedUser;
   }
 

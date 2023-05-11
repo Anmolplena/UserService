@@ -12,7 +12,7 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const users_module_1 = require("./users/users.module");
 const mongoose_1 = require("@nestjs/mongoose");
-const nats_service_1 = require("./nats/nats.service");
+const nats_module_1 = require("./nats/nats.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -22,9 +22,10 @@ AppModule = __decorate([
                 useNewUrlParser: true,
             }),
             users_module_1.UsersModule,
+            nats_module_1.NatsModule,
         ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService, nats_service_1.NatsService],
+        providers: [app_service_1.AppService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

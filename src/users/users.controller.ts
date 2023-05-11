@@ -6,7 +6,7 @@ import { User } from './interfaces/user.interface';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
   @Post()
-  createUser(user: User) {
+  createUser(user: User):any {
     return this.userService.createUser(user);
   }
 }

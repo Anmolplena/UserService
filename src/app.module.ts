@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { MongooseModule } from '@nestjs/mongoose';
-import { NatsService } from './nats/nats.service';
+import { NatsModule } from './nats/nats.module';
 
 @Module({
   imports: [
@@ -11,8 +11,9 @@ import { NatsService } from './nats/nats.service';
       useNewUrlParser: true,
     }),
     UsersModule,
+    NatsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, NatsService],
+  providers: [AppService],
 })
 export class AppModule {}

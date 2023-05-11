@@ -5,29 +5,29 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.NatsService = void 0;
+exports.NatsModule = void 0;
 const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
-let NatsService = class NatsService {
-    constructor() {
-        this.client = microservices_1.ClientProxyFactory.create({
-            transport: microservices_1.Transport.NATS,
-            options: {
-                url: 'nats://localhost:4222',
-            },
-        });
-    }
-    getClient() {
-        return this.client;
-    }
+const nats_service_1 = require("./nats.service");
+let NatsModule = class NatsModule {
 };
-NatsService = __decorate([
-    (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
-], NatsService);
-exports.NatsService = NatsService;
-//# sourceMappingURL=nats.service.js.map
+NatsModule = __decorate([
+    (0, common_1.Module)({
+        imports: [
+            microservices_1.ClientsModule.register([
+                {
+                    name: 'NATS_CLIENT',
+                    transport: microservices_1.Transport.NATS,
+                    options: {
+                        url: 'nats://localhost:4222',
+                    },
+                },
+            ]),
+        ],
+        exports: [microservices_1.ClientsModule],
+        providers: [nats_service_1.NatsService],
+    })
+], NatsModule);
+exports.NatsModule = NatsModule;
+//# sourceMappingURL=nats.module.js.map
