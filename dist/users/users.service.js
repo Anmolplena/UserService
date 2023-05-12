@@ -26,7 +26,7 @@ let UsersService = class UsersService {
         const createdUser = new this.userModel(user);
         const savedUser = await createdUser.save();
         const message = { event: 'userCreated', data: savedUser._id };
-        await this.natsService.getClient().send('userEvents', message).toPromise();
+        this.natsService.getClient().send('userEvents', message).toPromise();
         return savedUser;
     }
     async findAll() {

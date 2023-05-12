@@ -18,7 +18,7 @@ export class UsersService {
     //   userId: savedUser._id,
     // };
     const message = { event: 'userCreated', data: savedUser._id };
-     await this.natsService.getClient().send('userEvents', message).toPromise();
+     this.natsService.getClient().send('userEvents', message).toPromise();
     return savedUser;
   }
 
